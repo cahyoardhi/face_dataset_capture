@@ -16,6 +16,8 @@ while True:
         frame, scaleFactor=1.3, minNeighbors=3)
     for (x, y, w, h) in face_rects:
         cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), 3)
+        cv2.putText(frame, 'HANDSOME PEOPLE', (x, y-15), cv2.FONT_HERSHEY_SIMPLEX,
+                    1.0, (0, 255, 0), 3, lineType=cv2.LINE_AA)
 
     cv2.imshow('Face Detector', frame)
 
