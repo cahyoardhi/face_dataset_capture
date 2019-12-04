@@ -1,4 +1,4 @@
-# face_detection
+# face_dataset_capture
 This program is created to capture people face continously
 you need to install opencv on your on machine to run this program
 
