@@ -2,7 +2,6 @@
 import cv2
 import numpy as np
 import os 
-import datetime
 
 #Load Model
 face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
@@ -34,18 +33,24 @@ while True:
     for (x, y, w, h) in face_rects:
         
         #Draw rectangle and put into frame
-        cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), 2)
-        # cv2.putText(frame, 'HANDSOME PEOPLE', (x, y-15), cv2.FONT_HERSHEY_SIMPLEX,
-        # 1.0, (0, 255, 0), 2, lineType=cv2.LINE_AA)
+        cv2.rectangle(frame, (x-20,y-20), (x+w+20,y+h+20), (0,255,0), 4)
+
+        #Create box on the top of rectangle for text
+        cv2.rectangle(frame, (x-20, y-50), (x+w+25, y-20), (0, 255, 0), -1)
+        cv2.putText(frame, 'FACE DETECTED', (x,y-30), cv2.FONT_HERSHEY_SIMPLEX,
+        0.5, (0, 0, 0), 2)
 
         #Increment face image
         count += 1
-
+    
         #Resize the image face capture
-        normalisation = cv2.resize(frame[y:y+h,x:x+w], (200,200))
+        normalisation   = cv2.resize(frame[y:y+h,x:x+w], (200,200))
+
+        #Convert image to grayscale
+        grayscale       = cv2.cvtColor(normalisation, cv2.COLOR_BGR2GRAY)
                 
         #Save the captured image into the dataset folder        
-        cv2.imwrite('dataset/'+str(count)+".jpg",normalisation)
+        cv2.imwrite('dataset/'+str(count)+".jpg",grayscale)
 
     #Output the video with frame    
     cv2.imshow('Face Dataset Capture', frame)
@@ -55,7 +60,7 @@ while True:
         cap.release()
         cv2.destroyAllWindows()
 
-    elif count>100:
+    elif count>1000:
         cap.release()
         cv2.destroyAllWindows()
         break
