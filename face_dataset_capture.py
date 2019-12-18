@@ -19,6 +19,7 @@ count = 0
 
 #Capture video from webcam (0) or video file('videoname.format')
 cap = cv2.VideoCapture(0)
+
 scaling_factor = 1
 
 #Loop for capture video
@@ -47,10 +48,10 @@ while True:
         normalisation   = cv2.resize(frame[y:y+h,x:x+w], (200,200))
 
         #Convert image to grayscale
-        grayscale       = cv2.cvtColor(normalisation, cv2.COLOR_BGR2GRAY)
+        # grayscale       = cv2.cvtColor(normalisation, cv2.COLOR_BGR2GRAY)
                 
         #Save the captured image into the dataset folder        
-        cv2.imwrite('dataset/'+str(count)+".jpg",grayscale)
+        cv2.imwrite('dataset/'+str(count)+".jpg",normalisation)
 
     #Output the video with frame    
     cv2.imshow('Face Dataset Capture', frame)
@@ -60,7 +61,7 @@ while True:
         cap.release()
         cv2.destroyAllWindows()
 
-    elif count>1000:
+    elif count>500:
         cap.release()
         cv2.destroyAllWindows()
         break
